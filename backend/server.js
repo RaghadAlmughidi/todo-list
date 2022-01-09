@@ -65,6 +65,18 @@ app.put("/tasks/:id", (req, res) => {
     }
   );
 });
+//get comleted data &not completed
+//http://localhost:5000/fillter?isCompleted=true   it called query params 
+//?key=value&key=value 
+app.get("/fillter",(req,res)=>{
+  console.log(req.query);
+  Todo.find({isCompleted: req.query.isCompleted},(err,data)=>{
+    if(err){console.log("ERROR",err);
+  }else{
+    res.json(data);
+  }
+  });
+});
 
 app.listen(5000,()=>{
     console.log('SERVER WORKING')
