@@ -1,11 +1,13 @@
 const express= require('express')
+const cors = require("cors")
 const app=express()
 
 const db1=require("./db1");
 
 const Todo=require('./todo')
 console.log(Todo);
-app.use(express.json())
+app.use(express.json());
+app.use(cors());
 
 app.get("/",(req,res)=>{
     res.json('GET / WORKING')
@@ -111,6 +113,6 @@ app.put("/tasks/:id/:isCompleted", (req, res) => {
     }
   );
 });
-app.listen(3000,()=>{
+app.listen(5000,()=>{
     console.log('SERVER WORKING')
 })
