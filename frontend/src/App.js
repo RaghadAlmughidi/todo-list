@@ -9,6 +9,7 @@ function App() {
   useEffect(() => {
    getData()
   }, []);
+  //get all Tasks
   const getData= () =>{
     {/*from backend getTasks using axios */}
     axios
@@ -21,6 +22,7 @@ function App() {
         console.log('error',err);
       });
   };
+  //post new Tasks
   const postNewTodo =(body)=>{
     
     axios
@@ -35,9 +37,41 @@ function App() {
       console.log('error',err);
     }); 
   };
+  //delete Tasks
+  const deleteTodo =(id)=>{
+    
+    axios
+    .delete(`http://localhost:5000/tasks/${id}`)
+    .then((response)=>{
+      console.log('data',response.data);
+     // setTasks(response.data);
+     // getData() to see the new task
+     getData()
+    })
+    .catch((err)=>{
+      console.log('error',err);
+    }); 
+  };
+  //update tasks
+  const toggleTodo =(id,newStatus)=>{
+    //axios =>>bring data from data base
+    axios
+    .put(`http://localhost:5000/tasks/${id}/${newStatus}`)
+    .then((response)=>{
+      console.log('data',response.data);
+     // setTasks(response.data);
+     // getData() to see the new task
+     getData()
+    })
+    .catch((err)=>{
+      console.log('error',err);
+    }); 
+  };
+
   const mapOverTasks = tasks.map((taskObj, i)=>
    //map method every time return Todo
-   <Todo key={i} task={taskObj}/>
+   
+   <Todo key={i} task={taskObj} deleteTodo={deleteTodo} toggleTodo={toggleTodo}/>
   );
   return (
     <div className="App">
